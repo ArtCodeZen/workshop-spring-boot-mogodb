@@ -30,6 +30,16 @@ public class UserService {
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
+	public User update(User obj) {
+		Optional<User> newObj = repo.findById(obj.getId());
+		updateData(newObj.get(), obj);
+		return repo.save(obj);
+	}
+	private void updateData(User newObj, User obj) {
+		// TODO Auto-generated method stub
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+	}
 	public void delete(String id) {
 		findById(id);
 		repo.deleteById(id);
